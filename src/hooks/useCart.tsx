@@ -86,8 +86,8 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
   }: UpdateProductAmount) => {
     try {
       if (amount < 1) return;
-      const updatedCart = [...cart];
-      const foundProduct = cart.find(product => product.id === productId);
+      const updatedCart = cart.map(product => ({...product}));
+      const foundProduct = updatedCart.find(product => product.id === productId);
       if(foundProduct) {
         const stock = await api.get(`/stock/${productId}`);
         const stockAmount = stock.data.amount;
